@@ -295,7 +295,6 @@ if (!SAFARI) {
 
         // Convert punycode domain to Unicode - GH #472
         details.url = new parseURI(details.url).href;
-
         if (!frameData.track(details)) {
             return { cancel: false };
         }
@@ -368,6 +367,8 @@ if (!SAFARI) {
         if (blocked && elType === ElementTypes.subdocument) {
             return { redirectUrl: "about:blank" };
         }
+        // Temporary solution to blocking
+        blocked = false
         return { cancel: blocked };
     }
 
