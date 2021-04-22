@@ -21,10 +21,12 @@ setTimeout(()=>{
     // console.log("this:", googleAd, googleAd.src)
     for (let googleAd of googleAds) {
         let url = googleAd.src
-        if (!url.match(regex)) {
+        if (!url.match(regex) && !googleAd.id.contains("google_ads")) {
+          console.log(url, "no match");
           continue
         }
-        
+        console.log(url, "match");
+
         let request = makeHttpObject();
         console.log("sending request for!!", url);
         request.open("GET", "https://cors-proxy.htmldriven.com/?url="+url, true);
