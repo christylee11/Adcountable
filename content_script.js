@@ -15,11 +15,16 @@ function makeHttpObject() {
 
 setTimeout(()=>{
     console.log("timeout happened");
+    const regex = "/((http(s)?:\/\/googleads.*)&p=*)/g";
     let googleAds = document.querySelectorAll("iframe");
     console.log("found", googleAds.length, "iframes");
     // console.log("this:", googleAd, googleAd.src)
     for (let googleAd of googleAds) {
         let url = googleAd.src
+        if (!url.match(regex)) {
+          continue
+        }
+        
         let request = makeHttpObject();
         console.log("sending request for!!", url);
         request.open("GET", "https://cors-proxy.htmldriven.com/?url="+url, true);
