@@ -39,8 +39,7 @@ setTimeout(() => {
     error it's getting rn: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSMissingAllowOrigin
     ---------------------------------------------------------------------------------*/
 
-    // let request = makeHttpObject();
-    let request = new XMLHttpRequest();
+    let request = makeHttpObject();
 
     console.log("sending request for!!", url);
     request.open("GET", "https://cors-proxy.htmldriven.com/?url=" + url, true);
