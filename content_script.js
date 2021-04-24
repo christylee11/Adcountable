@@ -33,11 +33,21 @@ setTimeout(() => {
     }
     console.log(url, "match");
 
-    let request = makeHttpObject();
+    /* ---------------------------------------------------------------------------------
+    current to do: get the request below to work lol
+    basic request format: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
+    error it's getting rn: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSMissingAllowOrigin
+    ---------------------------------------------------------------------------------*/
+
+    // let request = makeHttpObject();
+    let request = new XMLHttpRequest();
+
     console.log("sending request for!!", url);
     request.open("GET", "https://cors-proxy.htmldriven.com/?url=" + url, true);
-    // request.send(null);
-    request.onreadystatechange = function() {
+    request.send(null);
+    // request.onreadystatechange = function() {
+    request.onload = function() {
+      console.log("flag1");
       if (request.readyState == 4) {
         //    console.log(request.response);
         console.log("result:", request.responseText);
