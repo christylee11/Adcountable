@@ -13,25 +13,27 @@ const DB_fb = {
 function overlay(iframe, adProvider) {
   dims = iframe.getBoundingClientRect();
   let cover = document.createElement("div");
+  let iframe_child = iframe.firstChild;
   cover.setAttribute(
     "style",
     `
-   position: absolute;
+   position: relative;
    justify-items: center;
    align-items: center;
    background:#000;
-   z-index:1000;
+   z-index:2000;
    width:` +
-      dims.width +
-      "px;height:" +
-      dims.height +
-      "px;top:" +
-      dims.top +
+    dims.width +
+    "px;height:" +
+    dims.height +
+    "px;top:" +
+    0 + // changed top and left to 0 bc relative placement in a scrolling feed
       "px;left:" +
-      dims.left +
+      0 +
       "px"
   );
-  // console.log(dims.width);
+
+  // create text within the cover
   let text = document.createElement("h2");
   text.setAttribute(
     "style",
@@ -45,73 +47,51 @@ function overlay(iframe, adProvider) {
    font-size: 20px;
    `
   );
+  // create button within the cover
   let button = document.createElement("button");
   button.innerHTML = "See original ad";
   cover.appendChild(button);
   button.addEventListener("click", function() {
+    iframe_child.style.display = "block";
     cover.style.display = "none";
-    iframe.style.display = "block";
   });
 
   text.innerHTML = DB_fb[adProvider][0];
   cover.appendChild(text);
   cover.setAttribute("id", "cover!!!");
-  iframe.appendChild(cover);
-  // prevent replacement
-  iframe.parentElement.setAttribute("id", "");
-  iframe.setAttribute("id", "");
-  iframe.style.display = "none";
+
+  // hide everything in the ad and add in our cover
+  iframe_child.style.display = "none";
+  iframe.insertBefore(cover, iframe.firstChild);
+
+  iframe.setAttribute(
+    "style",
+    `
+   width:` +
+      dims.width +
+      "px;height:" +
+      dims.height
+  );
+
+  // // prevent replacement
+  // // iframe.parentElement.setAttribute("id", "");
+  // iframe.setAttribute("id", "");
+  // iframe.style.display = "none";
 }
 
 setTimeout(() => {
   console.log("timeout happened");
-  // brute-force method: look for <div data-pagelet="FeedUnit_1"> (usually an ad)
-  // let div = document.querySelectorAll("[data-pagelet='FeedUnit_1']");
-  // div.forEach(ad => {
-  //   console.log(ad);
-  //   overlay(ad, "shein");
-  // });
 
-  // ALTERNATIVE (to find the ads on page):
-  // find the "sponsored" element that's included on every ad unit
+  // find the "sponsored" element that's included on every ad unit with an href="/ads/..."
   let ads = document.querySelectorAll('[href*="/ads"]');
-  console.log("# ADS!!!: ", ads.length);
   // let ads = document.querySelectorAll('[aria-label*="Sponsored"]'); // alternative route to finding ads
-  // then loop through its parents until you reach a data pagelet element, which is the overall unit
+  console.log("# ADS!!!: ", ads.length);
+
+  // then loop through its parents until you reach a data pagelet element, which is the overall unit in the feed
   ads.forEach(ad => {
-    console.log("ad: ", ad);
+    console.log("ad: ", ad.href);
     let unit = ad.closest("[data-pagelet]");
+    console.log("unit: ", unit.dataset.pagelet);
     overlay(unit, "shein");
   });
 }, 10000);
-
-// below is code from https://stackoverflow.com/questions/23753953/detect-js-events-like-facebook-message-fast
-// might work better to identify the ads on the page with FB's weird DOM issues, but if you do too much
-// within the foreach loop, the browser gets overloaded
-// (function() {
-//   "use strict";
-
-//   const nodeRemoval = (mutationList, observer) => {
-//       mutationList.forEach(mutation => {
-//         if (mutation.addedNodes && mutation.addedNodes.length) {
-//           mutation.target
-//             .querySelectorAll('[aria-label="Sponsored"]')
-//             .forEach(adLink => {
-//               // var unit = adLink.closest("[data-pagelet]");
-//               overlay(adLink, "shein");
-//               // unit.style.backgroundColor = "red";
-//               console.log("flag");
-//             });
-//         }
-//       });
-//     },
-//     targetNode = document.querySelector("body"),
-//     options = {
-//       childList: true,
-//       attributes: false,
-//       subtree: true
-//     },
-//     observer = new MutationObserver(nodeRemoval);
-
-//   observer.observe(targetNode, options);
-// })();
