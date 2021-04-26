@@ -22,6 +22,7 @@ function overlay(iframe, adProvider) {
    align-items: center;
    background:#000;
    z-index:2000;
+   border-radius:10px;
    width:` +
     dims.width +
     "px;height:" +
