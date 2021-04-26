@@ -14,6 +14,14 @@
   "content_scripts": [
     {
       "matches": [
+        "*://*.facebook.com/*"
+      ],
+      "js": [
+        "content_script_fb.js"
+      ]
+    },
+    {
+      "matches": [
         "*://*/*"
       ],
       "js": [
