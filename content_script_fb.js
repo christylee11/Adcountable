@@ -35,16 +35,19 @@ const DB = {
 }
 
 function overlay(iframe, adProvider) {
+  dims = iframe.getBoundingClientRect()
   let cover = document.createElement('div');
    cover.setAttribute('style', `
-   position: relative;
-   display: flex;
+   position: absolute;
    justify-items: center;
    align-items: center;
-   width:100%;
-   height:100%;
    background:#000;
-   `);
+   z:1000;
+   width:`+dims.width+
+   'px;height:'+dims.height+
+   'px;top:'+dims.top+
+   'px;left:'+dims.left+'px');
+  // console.log(dims.width);
   let text = document.createElement('h2');
   text.setAttribute('style', `
    color: white;
@@ -65,20 +68,23 @@ function overlay(iframe, adProvider) {
 
   text.innerHTML = DB[adProvider][0]
   cover.appendChild(text)
-  iframe.parentElement.appendChild(cover)
+  cover.setAttribute("id","cover!!!")
+  iframe.appendChild(cover)
   // prevent replacement
-  iframe.parentElement.setAttribute("id","")
+  // iframe.parentElement.setAttribute("id","")
   iframe.setAttribute("id","")
-  iframe.style.display = "none"
+  // iframe.style.display = "none"
 }
 
 setTimeout(() => {
   console.log("timeout happened");
   // look for <div data-pagelet="FeedUnit_1"> (usually an ad)
-  // make overlay
+  let div = document.querySelectorAll("[data-pagelet='FeedUnit_1']");
+  div.forEach((ad) => {
+    console.log(ad)
+    overlay(ad, "shein")
+  })
 
-
-  
   // let iframes = document.querySelectorAll("iframe");
   // console.log("found", iframes.length, "iframes");
   // // console.log("this:", googleAd, googleAd.src)
@@ -109,6 +115,6 @@ setTimeout(() => {
     //     console.log("result:", request.responseText);
     //   }
     // };
-  });
+  // });
 }, 6000);
 
