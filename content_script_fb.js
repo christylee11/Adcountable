@@ -42,7 +42,7 @@ function overlay(iframe, adProvider) {
    justify-items: center;
    align-items: center;
    background:#000;
-   z:1000;
+   z-index:1000;
    width:`+dims.width+
    'px;height:'+dims.height+
    'px;top:'+dims.top+
