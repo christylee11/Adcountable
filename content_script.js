@@ -2,8 +2,9 @@
 console.log("started content injection");
 // window.onload = () => {
 
-let font = document.createElement('div');
-font.innerHTML = '<link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">'
+var font = document.createElement("div");
+font.innerHTML =
+  '<link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">';
 document.body.appendChild(font);
 
 function makeHttpObject() {
@@ -22,21 +23,26 @@ function makeHttpObject() {
 
 function classifyAd(iframe) {
   // const isGoogleAd = /((http(s)?:\/\/googleads.*)*)/g;`
-  if (iframe.src.includes("doubleclick") || iframe.src.includes("googlesyndication")) {
-    return "google"
+  if (
+    iframe.src.includes("doubleclick") ||
+    iframe.src.includes("googlesyndication")
+  ) {
+    return "google";
   }
-  return undefined
+  return undefined;
 }
 
 const DB = {
-  "google": [
+  google: [
     "<b>Google</b> advised mental health care when workers complained about racism and sexism"
   ]
-}
+};
 
 function overlay(iframe, adProvider) {
-  let cover = document.createElement('div');
-   cover.setAttribute('style', `
+  let cover = document.createElement("div");
+  cover.setAttribute(
+    "style",
+    `
    position: relative;
    display: flex;
    justify-items: center;
@@ -44,9 +50,12 @@ function overlay(iframe, adProvider) {
    width:100%;
    height:100%;
    background:#000;
-   `);
-  let text = document.createElement('h2');
-  text.setAttribute('style', `
+   `
+  );
+  let text = document.createElement("h2");
+  text.setAttribute(
+    "style",
+    `
    color: white;
    text-decoration: none;
    text-align: center;
@@ -54,22 +63,23 @@ function overlay(iframe, adProvider) {
    width:100%;
    font-family: 'Merriweather', serif; 
    font-size: 20px;
-   `);
+   `
+  );
   let button = document.createElement("button");
-    button.innerHTML = "See original ad";
-    cover.appendChild(button);
-    button.addEventListener("click", function() {
-      cover.style.display = "none"
-      iframe.style.display = "block"
-    });
+  button.innerHTML = "See original ad";
+  cover.appendChild(button);
+  button.addEventListener("click", function() {
+    cover.style.display = "none";
+    iframe.style.display = "block";
+  });
 
-  text.innerHTML = DB[adProvider][0]
-  cover.appendChild(text)
-  iframe.parentElement.appendChild(cover)
+  text.innerHTML = DB[adProvider][0];
+  cover.appendChild(text);
+  iframe.parentElement.appendChild(cover);
   // prevent replacement
-  iframe.parentElement.setAttribute("id","")
-  iframe.setAttribute("id","")
-  iframe.style.display = "none"
+  iframe.parentElement.setAttribute("id", "");
+  iframe.setAttribute("id", "");
+  iframe.style.display = "none";
 }
 
 setTimeout(() => {
@@ -78,13 +88,13 @@ setTimeout(() => {
   console.log("found", iframes.length, "iframes");
   // console.log("this:", googleAd, googleAd.src)
   window.test = iframes;
-  iframes.forEach((iframe) => {
-    console.log("there are", iframes.length, "hmm")
-    console.log(iframe.src)
-    let adProvider = classifyAd(iframe)
+  iframes.forEach(iframe => {
+    console.log("there are", iframes.length, "hmm");
+    console.log(iframe.src);
+    let adProvider = classifyAd(iframe);
     if (adProvider != undefined) {
-      console.log("ad by",adProvider,"found")
-      overlay(iframe, adProvider)
+      console.log("ad by", adProvider, "found");
+      overlay(iframe, adProvider);
     }
     /* ---------------------------------------------------------------------------------
     current to do: get the request below to work lol
@@ -106,4 +116,3 @@ setTimeout(() => {
     // };
   });
 }, 6000);
-
