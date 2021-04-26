@@ -29,8 +29,8 @@ function classifyAd(iframe) {
 }
 
 const DB = {
-  "google": [
-    "<b>Google</b> advised mental health care when workers complained about racism and sexism"
+  "shein": [
+    "<b>SHEIN</b> sold a Swastika necklace."
   ]
 }
 
@@ -74,18 +74,23 @@ function overlay(iframe, adProvider) {
 
 setTimeout(() => {
   console.log("timeout happened");
-  let iframes = document.querySelectorAll("iframe");
-  console.log("found", iframes.length, "iframes");
-  // console.log("this:", googleAd, googleAd.src)
-  window.test = iframes;
-  iframes.forEach((iframe) => {
-    console.log("there are", iframes.length, "hmm")
-    console.log(iframe.src)
-    let adProvider = classifyAd(iframe)
-    if (adProvider != undefined) {
-      console.log("ad by",adProvider,"found")
-      overlay(iframe, adProvider)
-    }
+  // look for <div data-pagelet="FeedUnit_1"> (usually an ad)
+  // make overlay
+
+
+  
+  // let iframes = document.querySelectorAll("iframe");
+  // console.log("found", iframes.length, "iframes");
+  // // console.log("this:", googleAd, googleAd.src)
+  // window.test = iframes;
+  // iframes.forEach((iframe) => {
+  //   console.log("there are", iframes.length, "hmm")
+  //   console.log(iframe.src)
+  //   let adProvider = classifyAd(iframe)
+  //   if (adProvider != undefined) {
+  //     console.log("ad by",adProvider,"found")
+  //     overlay(iframe, adProvider)
+  //   }
     /* ---------------------------------------------------------------------------------
     current to do: get the request below to work lol
     basic request format: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
