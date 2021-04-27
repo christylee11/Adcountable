@@ -62,10 +62,11 @@ function overlay(iframe, adProvider) {
   // create button linked to website
   let button_website = document.createElement("button");
   button_website.textContent = "Learn More";
-  // button_website.href = "https://adcountable.herokuapp.com/";
+  // button_website.href = "http://adcountable.herokuapp.com/shein";
+  // button_website.target = "_blank";
   cover.appendChild(button_website);
   button_website.addEventListener("click", function() {
-    location = "https://adcountable.herokuapp.com/";
+    window.open("http://adcountable.herokuapp.com/shein");
   });
   button_website.setAttribute("class", `ad_button`);
   button_website.style.fontFamily = "Merriweather, serif";
