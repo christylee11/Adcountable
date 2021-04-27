@@ -23,6 +23,7 @@ function overlay(iframe, adProvider) {
    background:#000;
    z-index:2000;
    border-radius:10px;
+   margin-bottom:15px;
    width:` +
     dims.width +
     "px;height:" +
@@ -42,20 +43,61 @@ function overlay(iframe, adProvider) {
    color: white;
    text-decoration: none;
    text-align: center;
+   position: absolute;
+   top: 30%;
+   left: 50%;
+   transform: translate(-50%, 0%);
    padding: 10px;
    width:100%;
    font-family: 'Merriweather', serif; 
    font-size: 20px;
    `
   );
-  // create button within the cover
+  // create button to hide cover
   let button = document.createElement("button");
-  button.innerHTML = "See original ad";
+  button.textContent = "See original ad";
   cover.appendChild(button);
   button.addEventListener("click", function() {
     iframe_child.style.display = "block";
     cover.style.display = "none";
   });
+
+  button.setAttribute(
+    "style",
+    `
+   text-decoration: none;
+   text-align: center;
+   position: absolute;
+   top: 55%;
+   left: 18%;
+   font-family: 'Merriweather', serif; 
+   font-size: 15px;
+   padding: 10px
+   `
+  );
+
+  // create button linked to website
+  let button_website = document.createElement("button");
+  button_website.textContent = "Learn More";
+  button_website.href = "https://adcountable.herokuapp.com/";
+  cover.appendChild(button_website);
+  button_website.addEventListener("click", function() {
+    location = "https://adcountable.herokuapp.com/";
+  });
+
+  button_website.setAttribute(
+    "style",
+    `
+   text-decoration: none;
+   text-align: center;
+   position: absolute;
+   top: 55%;
+   left: 58%;
+   font-family: 'Merriweather', serif; 
+   font-size: 15px;
+   padding: 10px
+   `
+  );
 
   text.innerHTML = DB_fb[adProvider][0];
   cover.appendChild(text);
