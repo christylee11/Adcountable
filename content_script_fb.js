@@ -91,8 +91,12 @@ setTimeout(() => {
   // then loop through its parents until you reach a data pagelet element, which is the overall unit in the feed
   ads.forEach(ad => {
     console.log("ad: ", ad.href);
-    let unit = ad.closest("[data-pagelet]");
-    console.log("unit: ", unit.dataset.pagelet);
-    overlay(unit, "shein");
+    let unit = ad.closest("[data-pagelet]"); // find the overall post in the feed
+    let title_h4 = unit.querySelectorAll("h4")[0]; // find the name of the company, always listed in <h4> header
+    let span = title_h4.querySelectorAll("span")[0];
+    let company = span.textContent;
+    console.log(company);
+    overlay(unit, "shein"); // temporary to have content
+    // overlay(unit, company) // UNCOMMENT THIS FOR ACTUAL DB INQUIRY
   });
 }, 10000);
