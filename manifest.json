@@ -12,7 +12,8 @@
   "content_scripts": [
     {
       "matches": ["*://*.facebook.com/*"],
-      "js": ["content_script_fb.js"]
+      "js": ["content_script_fb.js"],
+      "css": ["style_fb.css"]
     },
     {
       "matches": ["*://*/*"],

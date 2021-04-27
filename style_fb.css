@@ -1,0 +1,29 @@
+.ad_button {
+  text-decoration: none;
+  text-align: center;
+  position: absolute;
+  top: 55%;
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  width: 140px;
+}
+
+.ad_button:hover {
+  text-decoration: none;
+  background-color: white;
+}
+
+.ad_text {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  padding: 10px;
+  width: 85%;
+  font-family: "Merriweather", serif;
+  font-size: 20px;
+}

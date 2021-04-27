@@ -7,7 +7,9 @@ font.innerHTML =
 document.body.appendChild(font);
 
 const DB_fb = {
-  shein: ["<b>SHEIN</b> sold a Swastika necklace."]
+  shein: [
+    "<b>Ad by SHEIN</b> <br/><br/> Shein operates factories in countries that legally allow the employ of children as young as 14 years-old."
+  ]
 };
 
 function overlay(iframe, adProvider) {
@@ -21,6 +23,7 @@ function overlay(iframe, adProvider) {
    justify-items: center;
    align-items: center;
    background:#000;
+   box-shadow:1px 1px lightgray;
    z-index:2000;
    border-radius:10px;
    margin-bottom:15px;
@@ -37,67 +40,36 @@ function overlay(iframe, adProvider) {
 
   // create text within the cover
   let text = document.createElement("h2");
-  text.setAttribute(
-    "style",
-    `
-   color: white;
-   text-decoration: none;
-   text-align: center;
-   position: absolute;
-   top: 30%;
-   left: 50%;
-   transform: translate(-50%, 0%);
-   padding: 10px;
-   width:100%;
-   font-family: 'Merriweather', serif; 
-   font-size: 20px;
-   `
-  );
+  text.setAttribute("class", `ad_text`);
+  // create horizontal line
+  let line = document.createElement("hr");
+  cover.appendChild(line);
+  line.style.color = "white";
+  line.style.size = "30";
   // create button to hide cover
   let button = document.createElement("button");
-  button.textContent = "See original ad";
+  button.textContent = "See Original Ad";
   cover.appendChild(button);
   button.addEventListener("click", function() {
     iframe_child.style.display = "block";
     cover.style.display = "none";
   });
-
-  button.setAttribute(
-    "style",
-    `
-   text-decoration: none;
-   text-align: center;
-   position: absolute;
-   top: 55%;
-   left: 18%;
-   font-family: 'Merriweather', serif; 
-   font-size: 15px;
-   padding: 10px
-   `
-  );
+  button.setAttribute("class", `ad_button`);
+  button.style.fontFamily = "Merriweather, serif";
+  // fix this button positioning later by putting them side by side in a div and centerng the div
+  button.style.left = "18%";
 
   // create button linked to website
   let button_website = document.createElement("button");
   button_website.textContent = "Learn More";
-  button_website.href = "https://adcountable.herokuapp.com/";
+  // button_website.href = "https://adcountable.herokuapp.com/";
   cover.appendChild(button_website);
   button_website.addEventListener("click", function() {
     location = "https://adcountable.herokuapp.com/";
   });
-
-  button_website.setAttribute(
-    "style",
-    `
-   text-decoration: none;
-   text-align: center;
-   position: absolute;
-   top: 55%;
-   left: 58%;
-   font-family: 'Merriweather', serif; 
-   font-size: 15px;
-   padding: 10px
-   `
-  );
+  button_website.setAttribute("class", `ad_button`);
+  button_website.style.fontFamily = "Merriweather, serif";
+  button_website.style.left = "60%";
 
   text.innerHTML = DB_fb[adProvider][0];
   cover.appendChild(text);
@@ -115,11 +87,6 @@ function overlay(iframe, adProvider) {
       "px;height:" +
       dims.height
   );
-
-  // // prevent replacement
-  // // iframe.parentElement.setAttribute("id", "");
-  // iframe.setAttribute("id", "");
-  // iframe.style.display = "none";
 }
 
 setTimeout(() => {
