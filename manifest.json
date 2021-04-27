@@ -18,7 +18,8 @@
     {
       "matches": ["*://*/*"],
       "exclude_matches": ["*://*.facebook.com/*"],
-      "js": ["content_script.js"]
+      "js": ["content_script.js"],
+      "css": ["style_fb.css"]
     }
   ],
   "browser_action": {

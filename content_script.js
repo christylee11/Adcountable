@@ -70,7 +70,8 @@ function overlay(iframe, adProvider) {
   let button = document.createElement("button");
   button.innerHTML = "See original ad";
   button_div.appendChild(button);
-  button.setAttribute("style", "margin-left:10px;background-color:black;color:white;border:none");
+  button.setAttribute("class", `ad_button`);
+  button.style.fontFamily = "Merriweather, serif";
   button.addEventListener("click", function() {
     cover.style.display = "none";
     iframe.style.display = "block";
@@ -80,7 +81,8 @@ function overlay(iframe, adProvider) {
   cover.appendChild(learn_more_div);
   let learn_more = document.createElement("button");
   learn_more.innerHTML = "Learn more";
-  learn_more.setAttribute("style", "margin-left:10px;background-color:black;color:white;border:none");
+  learn_more.setAttribute("class", `ad_button`);
+  learn_more.style.fontFamily = "Merriweather, serif";
   learn_more_div.appendChild(learn_more);
   learn_more.addEventListener("click", function() {
     window.location.href='https://adcountable.herokuapp.com/';
