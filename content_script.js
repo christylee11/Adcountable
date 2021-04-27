@@ -65,12 +65,25 @@ function overlay(iframe, adProvider) {
    font-size: 20px;
    `
   );
+  let button_div = document.createElement("div");
+  cover.appendChild(button_div);
   let button = document.createElement("button");
   button.innerHTML = "See original ad";
-  cover.appendChild(button);
+  button_div.appendChild(button);
+  button.setAttribute("style", "margin-left:10px;background-color:black;color:white;border:none");
   button.addEventListener("click", function() {
     cover.style.display = "none";
     iframe.style.display = "block";
+  });
+
+  let learn_more_div = document.createElement("div");
+  cover.appendChild(learn_more_div);
+  let learn_more = document.createElement("button");
+  learn_more.innerHTML = "Learn more";
+  learn_more.setAttribute("style", "margin-left:10px;background-color:black;color:white;border:none");
+  learn_more_div.appendChild(learn_more);
+  learn_more.addEventListener("click", function() {
+    window.location.href='https://adcountable.herokuapp.com/';
   });
 
   text.innerHTML = DB[adProvider][0];
