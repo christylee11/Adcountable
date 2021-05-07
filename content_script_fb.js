@@ -1,17 +1,31 @@
-// Put all the javascript code here, that you want to execute after page load.
+/* ------------------------------------------------------
+ * file description: content script specifically for Facebook
+ * ----------------------------------------------------*/
+
 console.log("started content injection");
 
+/* ------------------------------------------------------
+ * Define Merriweather font
+ * ----------------------------------------------------*/
 var font = document.createElement("div");
 font.innerHTML =
   '<link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">';
 document.body.appendChild(font);
 
+/* ------------------------------------------------------
+ * Temporary database object
+ * todo: replace this with access to our actual database
+ * ----------------------------------------------------*/
 const DB_fb = {
   shein: [
     "<b>Ad by SHEIN</b> <br/><br/> Shein operates factories in countries that legally allow the employ of children as young as 14 years-old."
   ]
 };
 
+/* ------------------------------------------------------
+ * Helper function for overlaying ad area with our cover
+ * todo: finish transfering styling over to style_fb.css
+ * ----------------------------------------------------*/
 function overlay(iframe, adProvider) {
   dims = iframe.getBoundingClientRect();
   let cover = document.createElement("div");
@@ -62,8 +76,6 @@ function overlay(iframe, adProvider) {
   // create button linked to website
   let button_website = document.createElement("button");
   button_website.textContent = "Learn More";
-  // button_website.href = "http://adcountable.herokuapp.com/shein";
-  // button_website.target = "_blank";
   cover.appendChild(button_website);
   button_website.addEventListener("click", function() {
     window.open("http://adcountable.herokuapp.com/shein");
@@ -90,6 +102,11 @@ function overlay(iframe, adProvider) {
   );
 }
 
+/* ------------------------------------------------------
+ * Currently a 10 second timeout to allow ad to fully load into DOM before we interact with it
+ * Note: Facebook's DOM is very finicky to interact with, often doesn't register elements for
+ * developer until you interact with it in some way (e.g. inspect an element)
+ * ----------------------------------------------------*/
 setTimeout(() => {
   console.log("timeout happened");
 
@@ -106,7 +123,7 @@ setTimeout(() => {
     let span = title_h4.querySelectorAll("span")[0];
     let company = span.textContent;
     console.log(company);
-    overlay(unit, "shein"); // temporary to have content
+    overlay(unit, "shein"); // temporary to have default content
     // overlay(unit, company) // UNCOMMENT THIS FOR ACTUAL DB INQUIRY
   });
 }, 10000);
