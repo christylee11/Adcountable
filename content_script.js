@@ -1,12 +1,21 @@
-// Put all the javascript code here, that you want to execute after page load.
+/* ------------------------------------------------------
+ * file description: content script for all websites outside of Facebook
+ * ----------------------------------------------------*/
+
 console.log("started content injection");
-// window.onload = () => {
+
+/* ------------------------------------------------------
+ * Define Merriweather font
+ * ----------------------------------------------------*/
 
 var font = document.createElement("div");
 font.innerHTML =
   '<link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">';
 document.body.appendChild(font);
 
+/* ------------------------------------------------------
+ * Helper function for creating an HTTP object
+ * ----------------------------------------------------*/
 function makeHttpObject() {
   try {
     return new XMLHttpRequest();
@@ -21,6 +30,9 @@ function makeHttpObject() {
   throw new Error("Could not create HTTP request object.");
 }
 
+/* ------------------------------------------------------
+ * Helper function for classifying ads
+ * ----------------------------------------------------*/
 function classifyAd(iframe) {
   // const isGoogleAd = /((http(s)?:\/\/googleads.*)*)/g;`
   if (
@@ -32,13 +44,22 @@ function classifyAd(iframe) {
   return undefined;
 }
 
+/* ------------------------------------------------------
+ * Temporary database object
+ * todo: replace this with access to our actual database
+ * ----------------------------------------------------*/
 const DB = {
   google: [
     "<b>Google</b> advised mental health care when workers complained about racism and sexism"
   ]
 };
 
+/* ------------------------------------------------------
+ * Helper function for overlaying ad area with our cover
+ * todo: transfer styling over to a css file to clean up this function
+ * ----------------------------------------------------*/
 function overlay(iframe, adProvider) {
+  // overall cover
   let cover = document.createElement("div");
   cover.setAttribute(
     "style",
@@ -52,6 +73,7 @@ function overlay(iframe, adProvider) {
    background:#000;
    `
   );
+  // cover message text
   let text = document.createElement("h2");
   text.setAttribute(
     "style",
@@ -65,6 +87,7 @@ function overlay(iframe, adProvider) {
    font-size: 20px;
    `
   );
+  // button to see original ad
   let button_div = document.createElement("div");
   cover.appendChild(button_div);
   let button = document.createElement("button");
@@ -76,7 +99,7 @@ function overlay(iframe, adProvider) {
     cover.style.display = "none";
     iframe.style.display = "block";
   });
-
+  // button that links to our website
   let learn_more_div = document.createElement("div");
   cover.appendChild(learn_more_div);
   let learn_more = document.createElement("button");
@@ -85,9 +108,10 @@ function overlay(iframe, adProvider) {
   learn_more.style.fontFamily = "Merriweather, serif";
   learn_more_div.appendChild(learn_more);
   learn_more.addEventListener("click", function() {
-    window.location.href='https://adcountable.herokuapp.com/';
+    window.location.href = "https://adcountable.herokuapp.com/";
   });
-
+  // set the message by referencing database
+  // todo: change indexing to actual company name after grabbing the name
   text.innerHTML = DB[adProvider][0];
   cover.appendChild(text);
   iframe.parentElement.appendChild(cover);
@@ -97,11 +121,14 @@ function overlay(iframe, adProvider) {
   iframe.style.display = "none";
 }
 
+/* ------------------------------------------------------
+ * Currently a 6 second timeout to allow ad to fully load into DOM before we interact with it
+ * Loop through iframe objects in order to find ads
+ * ----------------------------------------------------*/
 setTimeout(() => {
   console.log("timeout happened");
   let iframes = document.querySelectorAll("iframe");
   console.log("found", iframes.length, "iframes");
-  // console.log("this:", googleAd, googleAd.src)
   window.test = iframes;
   iframes.forEach(iframe => {
     console.log("there are", iframes.length, "hmm");
@@ -112,7 +139,8 @@ setTimeout(() => {
       overlay(iframe, adProvider);
     }
     /* ---------------------------------------------------------------------------------
-    current to do: get the request below to work lol
+    todo: find company name from the ad
+    below method for accessing contents of iframe does not work
     basic request format: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
     error it's getting rn: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSMissingAllowOrigin
     ---------------------------------------------------------------------------------*/
