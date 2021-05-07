@@ -27,9 +27,9 @@ For general Firefox extension development, we recommend installing web-ext. Plea
 
 ## Contact Us
 Hi! We are a team of students currently enrolled in SOC414/COS415: Can We Build Anti-racist Technologies? at Princeton University. We can be contacted at the following email addresses:
-Gagik Amaryan '22: gagik@princeton.edu
-Ilene E '21: ilenee@princeton.edu
-Ekin Gurgen '21: agurgen@princeton.edu
-Christy Lee '21: christyl@princeton.edu
-Carina Lewandowski '21: carinal@princeton.edu
-Katie Miller '21: ktmiller@princeton.edu
+* Gagik Amaryan '22: gagik@princeton.edu
+* Ilene E '21: ilenee@princeton.edu
+* Ekin Gurgen '21: agurgen@princeton.edu
+* Christy Lee '21: christyl@princeton.edu
+* Carina Lewandowski '21: carinal@princeton.edu
+* Katie Miller '21: ktmiller@princeton.edu
