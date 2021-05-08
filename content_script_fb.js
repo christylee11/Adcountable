@@ -47,11 +47,11 @@ function main(data) {
 
         if (!(comp in DB)) {
           DB[comp] = [
-            "<b>Ad by "+comp+"</b> <br/><br/> "+row.info+"."
+            "<b>Ad by "+comp+"</b> <br/><br/> "+row.info
             ]
         }
         else {
-            DB[comp].push("<b>Ad by "+comp+"</b> <br/><br/> "+row.info+".")
+            DB[comp].push("<b>Ad by "+comp+"</b> <br/><br/> "+row.info)
         } 
   })
 
