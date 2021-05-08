@@ -24,7 +24,7 @@ At the moment, our implementation handles two cases: ads run by Google Ads on an
 ## Future Goals and How to Contribute
 There is still much that can be done! For Google Ads, the primary goal at the moment is identifying which company is being advertised. Because of the privacy restrictions around working with iframe elements, we are not able to access this information at the moment. For the database, we welcome any contributions (from company press releases, news articles, etc.) regarding corporate misactions and discriminatory practices. Of course, there is always additional styling which can be done as well, and the extension itself has yet to be published to the Firefox extensions library.
 
-For general Firefox extension development, we recommend installing web-ext. Please see the Contact Us section below if you have any questions.
+For general Firefox extension development, we recommend installing web-ext (for more info, see [here](https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/). To test the extension and see changes in real time, run the following command in your terminal: ```web-ext run```. The applicable file names for each type of ad can be found in the section above. Please see the Contact Us section below if you have any questions.
 
 ## Contact Us
 Hi! We are a team of students currently enrolled in SOC414/COS415: Can We Build Anti-racist Technologies? at Princeton University. We can be contacted at the following email addresses:
