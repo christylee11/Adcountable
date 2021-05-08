@@ -35,13 +35,6 @@ function main(data) {
   /* ------------------------------------------------------
   * Create the database object
   * ----------------------------------------------------*/
-  /*
-  const DB_fb = {
-    shein: [
-      "<b>Ad by SHEIN</b> <br/><br/> Shein operates factories in countries that legally allow the employ of children as young as 14 years-old."
-    ]
-  };
-  */
   var DB = {};
 
   data.forEach(row => {
@@ -61,8 +54,6 @@ function main(data) {
             DB[comp].push("<b>Ad by "+comp+"</b> <br/><br/> "+row.info+".")
         } 
   })
-
-  //console.log(DB) // DB object is ready at this point
 
   /* ------------------------------------------------------
   * file description: content script specifically for Facebook
@@ -180,8 +171,11 @@ function main(data) {
       let span = title_h4.querySelectorAll("span")[0];
       let company = span.textContent;
       console.log(company);
-      overlay(unit, "Shein"); // temporary to have default content
-      // overlay(unit, company) // UNCOMMENT THIS FOR ACTUAL DB INQUIRY
+      if (company in DB) {
+        overlay(unit, company);
+      } else {
+        overlay(unit, "Facebook"); // temporary to have default content
+      }
     });
   }, 10000);
 }
