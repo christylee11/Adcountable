@@ -13,7 +13,13 @@ font.innerHTML =
 document.body.appendChild(font);
 
 /* ------------------------------------------------------
- * Database object
+ * Create the Database object. 
+ * 
+ * Note: Currently we are not making a connection to the
+ * actual DB since: (1) it doesn't contain enough data and
+ * (2) there were some issues related to accessing a DB
+ * from the frontend. You can see "content_script_fb_DB.js"
+ * to see an example of how this connection could be made.
  * ----------------------------------------------------*/
 const DB_fb = {
   Facebook: [
